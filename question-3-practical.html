@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sum of N Numbers</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      margin-top: 50px;
+      background-color:aqua;
+    }
+    input, button {
+      padding: 8px;
+      margin: 5px;
+    }
+    #result {
+      margin-top: 15px;
+      font-size: 18px;
+      color: green;
+    }
+    
+    
+  </style>
+</head>
+<body>
+
+  <h2>Sum of N Numbers</h2>
+
+  <input type="number" id="num" placeholder="Enter N">
+  <button onclick="calculate()">Calculate</button>
+
+  <div id="result"></div>
+
+  <script>
+    function calculate() {
+      let n = document.getElementById("num").value;
+      let sum = 0;
+
+      for (let i = 1; i <= n; i++) {
+        sum += i;
+      }
+
+      document.getElementById("result").innerHTML = "Sum = " + sum;
+    }
+  </script>
+
+</body>
+</html>
