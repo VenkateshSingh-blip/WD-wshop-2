@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Management System</title>
+    <link rel="stylesheet" href="exp5.css">
+</head>
+<body>
+
+<h1>Employee Management System</h1>
+
+<div class="form-container">
+    <input type="text" id="name" placeholder="Employee Name">
+    <input type="text" id="empid" placeholder="Employee ID">
+    <input type="text" id="branch" placeholder="Branch">
+    <input type="number" id="salary" placeholder="Salary">
+
+    <button onclick="addEmployee()">Add Employee</button>
+</div>
+
+<div class="buttons">
+    <button onclick="showAll()">Show All</button>
+    <button onclick="netsalary()">Net Salary</button>
+    <button onclick="salaryabove50()">Salary &gt; 50000</button>
+    <button onclick="averagesalary()">Average Salary</button>
+    <button onclick="countdepartment()">Count by Department</button>
+</div>
+
+
+<div id="display"></div>
+<div id="result" style="white-space: pre-wrap; margin-top: 10px;"></div>
+
+<script src="exp5.js"></script>
+
+</body>
+</html>
+
