@@ -1,0 +1,37 @@
+ body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .form-container {
+            width: 250px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 5px;
+            border: 1px solid #000;
+        }
+
+        button {
+            padding: 8px 12px;
+            margin: 5px 5px 5px 0;
+            border: 1px solid #000;
+            background-color: #f2f2f2;
+            cursor: pointer;
+        }
+
+        .buttons {
+            margin-top: 10px;
+        }
+
+        .card {
+            border: 1px solid black;
+            padding: 10px;
+            margin-top: 10px;
+        }
