@@ -1,108 +1,103 @@
-let employees = [];
+ let employees = [];  
 
-function addEmployee(){
-    let name = document.getElementById("name").value.trim();
-    let id = document.getElementById("empid").value.trim();
-    let branch = document.getElementById("branch").value.trim();
-    let salary = parseFloat(document.getElementById("salary").value);
+function addEmployee() {  
+    let name = document.getElementById("name").value;  
+    let id = document.getElementById("id").value;  
+    let salary = parseFloat(document.getElementById("salary").value);  
+    let department = document.getElementById("department").value;  
 
-    if(name === "" || id === "" || branch === "" || isNaN(salary)){
-        alert("Please fill all fields!");
-        return;
-    }
+    if (name === "" || id === "" || isNaN(salary) || department === "") {  
+        alert("Please fill all fields properly");  
+        return;  
+    }  
 
-    employees.push({name, id, branch, salary});
-    alert("Employee Added!");
+    let employee = {  
+        name: name,  
+        id: id,  
+        salary: salary,  
+        department: department  
+    };  
 
-    document.getElementById("name").value = "";
-    document.getElementById("empid").value = "";
-    document.getElementById("branch").value = "";
-    document.getElementById("salary").value = "";
-}
+    employees.push(employee);  
+    alert("Employee Added Successfully!");  
 
-function showAll(){
-    let container = document.getElementById("display");
-    container.innerHTML = "";
+    document.getElementById("name").value = "";  
+    document.getElementById("id").value = "";  
+    document.getElementById("salary").value = "";  
+    document.getElementById("department").value = "";  
+}  
 
-    if(employees.length === 0){
-        container.innerHTML = "No employees added";
-        return;
-    }
+function displayEmployees() {  
+    let output = "<h3>All Employees</h3>";  
 
-    employees.forEach(emp => {
-        let div = document.createElement("div");
-        div.className = "card";
+    if (employees.length === 0) {  
+        output += "No employees added yet.";  
+    }  
 
-        div.innerHTML =
-            "<b>Name:</b> " + emp.name + "<br>" +
-            "<b>ID:</b> " + emp.id + "<br>" +
-            "<b>Branch:</b> " + emp.branch + "<br>" +
-            "<b>Salary:</b> " + emp.salary;
+    employees.forEach(emp => {  
+        output += `  
+            Name: ${emp.name} |  
+            ID: ${emp.id} |  
+            Salary: ₹${emp.salary} |  
+            Department: ${emp.department} <br>  
+        `;  
+    });  
 
-        container.appendChild(div);
-    });
-}
+    document.querySelector(".result").innerHTML = output;  
+}  
 
-function netsalary(){
-    if(employees.length === 0){
-        showResult("No employees added");
-        return;
-    }
+function filterSalary() {  
+    let filtered = employees.filter(emp => emp.salary > 50000); 
+    let output = "<h3>Employees with Salary > ₹50,000</h3>";  
 
-    let total = employees.reduce((sum, emp) => sum + emp.salary, 0);
-    showResult("Net Salary = " + total);
-}
+    if (filtered.length === 0) {  
+        output += "No employees found.";  
+    }  
 
-function salaryabove50(){
-    let filtered = employees.filter(emp => emp.salary > 50000);
+    filtered.forEach(emp => {  
+        output += `  
+            Name: ${emp.name} |  
+            Salary: ₹${emp.salary} <br>  
+        `;  
+    });  
 
-    if(filtered.length === 0){
-        showResult("No employee has salary > 50000");
-        return;
-    }
+    document.querySelector(".result").innerHTML = output;  
+}  
 
-    let text = "Employees with salary > 50000:\n";
+function totalSalary() {  
+    let total = employees.reduce((sum, emp) => sum + emp.salary, 0);  
+    document.querySelector(".result").innerHTML =  
+        "<h3>Total Salary Payout: ₹" + total + "</h3>";  
+}  
 
-    filtered.forEach(emp => {
-        text += emp.name + " : " + emp.salary + "\n";
-    });
+function averageSalary() {  
+    if (employees.length === 0) {  
+        document.querySelector(".result").innerHTML =  
+            "<h3>No employee records available</h3>";  
+        return;  
+    }  
 
-    showResult(text);
-}
+    let total = employees.reduce((sum, emp) => sum + emp.salary, 0);  
+    let avg = total / employees.length;  
 
-function averagesalary(){
-    if(employees.length === 0){
-        showResult("No employees added");
-        return;
-    }
+    document.querySelector(".result").innerHTML =  
+        "<h3>Average Salary: ₹" + avg.toFixed(2) + "</h3>";  
+}  
 
-    let total = employees.reduce((sum, emp) => sum + emp.salary, 0);
-    let avg = (total / employees.length).toFixed(2);
+function sortByDepartment() {  
+    let sorted = [...employees].sort((a, b) =>  
+        a.department.localeCompare(b.department)  
+    );  
 
-    showResult("Average Salary = " + avg);
-}
+     let output = "<h3>Employees Sorted by Department</h3>";  
 
-function countdepartment(){
-    if(employees.length === 0){
-        showResult("No employees added");
-        return;
-    }
+    sorted.forEach(emp => {  
+        output += `  
+            Name: ${emp.name} |  
+            Department: ${emp.department} |  
+            Salary: ₹${emp.salary} <br>  
+        `;  
+    });  
 
-    let dept = {};
-
-    employees.forEach(emp => {
-        dept[emp.branch] = (dept[emp.branch] || 0) + 1;
-    });
-
-    let text = "Department Count:\n";
-
-    for(let d in dept){
-        text += d + " : " + dept[d] + "\n";
-    }
-
-    showResult(text);
-}
-
-function showResult(msg){
-    document.getElementById("result").innerText = msg;
+    document.querySelector(".result").innerHTML = output;  
 }
