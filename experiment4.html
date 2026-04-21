@@ -4,12 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Student Result Calculator</title>
-
 <style>
 
 body{
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg,#6dd5ed,#98b021);
+    background: #4CAF50; /* simple green color */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -61,6 +60,9 @@ button:hover{
     font-weight: bold;
     color: #333;
 }
+h2{
+    text-align: end;
+}
 
 </style>
 
@@ -77,49 +79,48 @@ button:hover{
 <button onclick="calculateResult()">Calculate Result</button>
 
 <div id="result"></div>
+<h2>Venkatesh Singh</h2>
+<h2>2503201001313</h2>
+<h2>cse-26</h2>
 </div>
+
 
 <script>
 
 function calculateResult() {
 
-let n = document.getElementById("subjects").value;
+let n = parseInt(document.getElementById("subjects").value);
+
+if (!n || n <= 0) {
+    alert("Please enter a valid number of subjects");
+    return;
+}
+
 let total = 0;
 
 for (let i = 1; i <= n; i++) {
-let marks = parseFloat(prompt("Enter the marks for subject " + i));
-total = total + marks;
+    let marks = parseFloat(prompt("Enter the marks for subject " + i));
+    
+    if (isNaN(marks)) {
+        alert("Invalid marks entered!");
+        return;
+    }
+
+    total += marks;
 }
 
 let avg = total / n;
 let grade;
 let result;
 
-if (avg >= 90) {
-grade = "A+";
-}
-else if (avg >= 75) {
-grade = "A";
-}
-else if (avg >= 60) {
-grade = "B";
-}
-else if (avg >= 50) {
-grade = "C";
-}
-else if (avg >= 40) {
-grade = "D";
-}
-else {
-grade = "F";
-}
+if (avg >= 90) grade = "A+";
+else if (avg >= 75) grade = "A";
+else if (avg >= 60) grade = "B";
+else if (avg >= 50) grade = "C";
+else if (avg >= 40) grade = "D";
+else grade = "F";
 
-if (avg >= 40) {
-result = "Pass";
-}
-else {
-result = "Fail";
-}
+result = avg >= 40 ? "Pass" : "Fail";
 
 document.getElementById("result").innerHTML =
 "Total Marks: " + total + "<br>" +
@@ -127,9 +128,12 @@ document.getElementById("result").innerHTML =
 "Grade: " + grade + "<br>" +
 "Result: " + result;
 
+
+
 }
 
 </script>
+
 
 </body>
 </html>
