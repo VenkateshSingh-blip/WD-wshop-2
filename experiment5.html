@@ -1,184 +1,185 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Employee Management System</title>
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Experiment-5</title>  
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-        }
+        .container{  
+    text-align: center;  
+    display: block;  
+    background-color: rgb(129, 150, 194);  
+    margin: 30px;  
+    padding: 10px;  
+}  
 
-        h1 {
-            margin-bottom: 20px;
-        }
+.button{  
+    padding: 5px;  
+    margin: 5px;  
+     background-color: rgb(79, 180, 17);  
+}  
 
-        .form-container {
-            width: 250px;
-        }
+#name{  
+    height: 30px;  
+    width: 250px;  
+    border-radius: 10px;  
+    margin-left: 50px;  
+}  
 
-        input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 5px;
-            border: 1px solid #000;
-        }
+#id{  
+    height: 30px;  
+    width: 250px;  
+    border-radius: 10px; 
+}  
 
-        button {
-            padding: 8px 12px;
-            margin: 5px 5px 5px 0;
-            border: 1px solid #000;
-            background-color: #f2f2f2;
-            cursor: pointer;
-        }
+#salary{  
+    height: 30px;  
+    width: 250px;  
+    border-radius: 10px;  
+margin-left: 45px;  
+}  
 
-        .buttons {
-            margin-top: 10px;
-        }
+#department{  
+height: 30px;  
+width: 250px;  
+border-radius: 10px;  
+margin-left: 10px;  
+}  
 
-        .card {
-            border: 1px solid black;
-            padding: 10px;
-            margin-top: 10px;
-        }
-    </style>
-</head>
-<body>
+.button:hover{  
+background-color:rgb(215, 21, 21) ;  
+}
+    </style>  
+</head>  
+<body>  
+    <div class="container">  
+        <h1>Enter Employee Details!</h1>  
+        <div class="labels">  
+        <label for="name">Name</label>  
+<input type="text" id="name" placeholder="Enter Name" required><br><br>  
+<label for="id">Employee ID</label>  
+<input type="number" id="id" placeholder="Enter Employee ID" required><br><br>  
+<label for="salary">Salary</label>  
+<input type="number" id="salary" placeholder="Enter Salary" required><br><br>  
+<label for="department">Department</label>  
+<input type="text" id="department" placeholder="Enter Department" required><br><br>  
+</div>  
 
-<h1>Employee Management System</h1>
-
-<div class="form-container">
-    <input type="text" id="name" placeholder="Employee Name">
-    <input type="text" id="empid" placeholder="Employee ID">
-    <input type="text" id="branch" placeholder="Branch">
-    <input type="number" id="salary" placeholder="Salary">
-
-    <button onclick="addEmployee()">Add Employee</button>
-</div>
-
-<div class="buttons">
-    <button onclick="showAll()">Show All</button>
-    <button onclick="netsalary()">Net Salary</button>
-    <button onclick="salaryabove50()">Salary &gt; 50000</button>
-    <button onclick="averagesalary()">Average Salary</button>
-    <button onclick="countdepartment()">Count by Department</button>
-</div>
-
-<!-- Output Areas -->
-<div id="display"></div>
-<div id="result" style="white-space: pre-wrap; margin-top: 10px;"></div>
-
+<button onclick="addEmployee()" class="button">Add Employee</button> <br><br>  
+ <button onclick="filterSalary()" class="button">Salary > 50,000</button>  
+<button onclick="displayEmployees()" class="button">Display Employee</button>  
+<button onclick="totalSalary()" class="button">Total Salary</button>  
+<button onclick="averageSalary()" class="button">Average Salary</button> <br><br>  
+<button onclick="sortByDepartment()" class="button">Sort by Department</button> <br><br> 
+<h2>Venkatesh Singh</h2>
+<h2>2503201001313</h2>
+<h2>cse-26</h2>
+</div>  
+<div class="result"></div>  
 <script>
-let employees = [];
+    let employees = [];  
 
-function addEmployee(){
-    let name = document.getElementById("name").value.trim();
-    let id = document.getElementById("empid").value.trim();
-    let branch = document.getElementById("branch").value.trim();
-    let salary = parseFloat(document.getElementById("salary").value);
+function addEmployee() {  
+    let name = document.getElementById("name").value;  
+    let id = document.getElementById("id").value;  
+    let salary = parseFloat(document.getElementById("salary").value);  
+    let department = document.getElementById("department").value;  
 
-    if(name === "" || id === "" || branch === "" || isNaN(salary)){
-        alert("Please fill all fields!");
-        return;
-    }
+    if (name === "" || id === "" || isNaN(salary) || department === "") {  
+        alert("Please fill all fields properly");  
+        return;  
+    }  
 
-    employees.push({name, id, branch, salary});
-    alert("Employee Added!");
+    let employee = {  
+        name: name,  
+        id: id,  
+        salary: salary,  
+        department: department  
+    };  
 
-    document.getElementById("name").value = "";
-    document.getElementById("empid").value = "";
-    document.getElementById("branch").value = "";
-    document.getElementById("salary").value = "";
+    employees.push(employee);  
+    alert("Employee Added Successfully!");  
+
+    document.getElementById("name").value = "";  
+    document.getElementById("id").value = "";  
+    document.getElementById("salary").value = "";  
+    document.getElementById("department").value = "";  
+}  
+
+function displayEmployees() {  
+    let output = "<h3>All Employees</h3>";  
+
+    if (employees.length === 0) {  
+        output += "No employees added yet.";  
+    }  
+
+    employees.forEach(emp => {  
+        output += `  
+            Name: ${emp.name} |  
+            ID: ${emp.id} |  
+            Salary: ₹${emp.salary} |  
+            Department: ${emp.department} <br>  
+        `;  
+    });  
+
+    document.querySelector(".result").innerHTML = output;  
+}  
+
+function filterSalary() {  
+    let filtered = employees.filter(emp => emp.salary > 50000); 
+    let output = "<h3>Employees with Salary > ₹50,000</h3>";  
+
+    if (filtered.length === 0) {  
+        output += "No employees found.";  
+    }  
+
+    filtered.forEach(emp => {  
+        output += `  
+            Name: ${emp.name} |  
+            Salary: ₹${emp.salary} <br>  
+        `;  
+    });  
+
+    document.querySelector(".result").innerHTML = output;  
+}  
+
+function totalSalary() {  
+    let total = employees.reduce((sum, emp) => sum + emp.salary, 0);  
+    document.querySelector(".result").innerHTML =  
+        "<h3>Total Salary Payout: ₹" + total + "</h3>";  
+}  
+
+function averageSalary() {  
+    if (employees.length === 0) {  
+        document.querySelector(".result").innerHTML =  
+            "<h3>No employee records available</h3>";  
+        return;  
+    }  
+
+    let total = employees.reduce((sum, emp) => sum + emp.salary, 0);  
+    let avg = total / employees.length;  
+
+    document.querySelector(".result").innerHTML =  
+        "<h3>Average Salary: ₹" + avg.toFixed(2) + "</h3>";  
+}  
+
+function sortByDepartment() {  
+    let sorted = [...employees].sort((a, b) =>  
+        a.department.localeCompare(b.department)  
+    );  
+
+     let output = "<h3>Employees Sorted by Department</h3>";  
+
+    sorted.forEach(emp => {  
+        output += `  
+            Name: ${emp.name} |  
+            Department: ${emp.department} |  
+            Salary: ₹${emp.salary} <br>  
+        `;  
+    });  
+
+    document.querySelector(".result").innerHTML = output;  
 }
-
-function showAll(){
-    let container = document.getElementById("display");
-    container.innerHTML = "";
-
-    if(employees.length === 0){
-        container.innerHTML = "No employees added";
-        return;
-    }
-
-    employees.forEach(emp => {
-        let div = document.createElement("div");
-        div.className = "card";
-
-        div.innerHTML =
-            "<b>Name:</b> " + emp.name + "<br>" +
-            "<b>ID:</b> " + emp.id + "<br>" +
-            "<b>Branch:</b> " + emp.branch + "<br>" +
-            "<b>Salary:</b> " + emp.salary;
-
-        container.appendChild(div);
-    });
-}
-
-function netsalary(){
-    if(employees.length === 0){
-        showResult("No employees added");
-        return;
-    }
-
-    let total = employees.reduce((sum, emp) => sum + emp.salary, 0);
-    showResult("Net Salary = " + total);
-}
-
-function salaryabove50(){
-    let filtered = employees.filter(emp => emp.salary > 50000);
-
-    if(filtered.length === 0){
-        showResult("No employee has salary > 50000");
-        return;
-    }
-
-    let text = "Employees with salary > 50000:\n";
-
-    filtered.forEach(emp => {
-        text += emp.name + " : " + emp.salary + "\n";
-    });
-
-    showResult(text);
-}
-
-function averagesalary(){
-    if(employees.length === 0){
-        showResult("No employees added");
-        return;
-    }
-
-    let total = employees.reduce((sum, emp) => sum + emp.salary, 0);
-    let avg = (total / employees.length).toFixed(2);
-
-    showResult("Average Salary = " + avg);
-}
-
-function countdepartment(){
-    if(employees.length === 0){
-        showResult("No employees added");
-        return;
-    }
-
-    let dept = {};
-
-    employees.forEach(emp => {
-        dept[emp.branch] = (dept[emp.branch] || 0) + 1;
-    });
-
-    let text = "Department Count:\n";
-
-    for(let d in dept){
-        text += d + " : " + dept[d] + "\n";
-    }
-
-    showResult(text);
-}
-
-function showResult(msg){
-    document.getElementById("result").innerText = msg;
-}
-</script>
-
-</body>
+</script>  
+</body>  
 </html>
-
