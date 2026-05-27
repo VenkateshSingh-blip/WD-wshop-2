@@ -57,8 +57,8 @@ public class Exp10 {
     public static void main(String[] args) {
 
         // Creating objects
-        SavingsAccount sa = new SavingsAccount(101, "Venkatesh", 12000);
-        CurrentAccount ca = new CurrentAccount(102, "Madan", 22000);
+        SavingsAccount sa = new SavingsAccount(101, "Janmejay Singh", 12000);
+        CurrentAccount ca = new CurrentAccount(102, "Venkatesh Singh", 22000);
 
         System.out.println("----- Savings Account -----");
         sa.deposit(2000);
